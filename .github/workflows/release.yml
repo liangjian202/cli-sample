@@ -18,6 +18,9 @@ jobs:
           - os: windows-latest
             rid: win-x64
             asset: filecli-win-x64.zip
+          - os: windows-latest
+            rid: win-arm64
+            asset: filecli-win-arm64.zip
           - os: ubuntu-latest
             rid: linux-x64
             asset: filecli-linux-x64.tar.gz

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # filecli 一键安装脚本（macOS / Linux）
-# 用法: curl -fsSL https://raw.githubusercontent.com/liangjian202/cli-sample/main/FileCli/scripts/install.sh | bash
+# 用法: curl -fsSL https://raw.githubusercontent.com/liangjian202/cli-sample/master/FileCli/scripts/install.sh | bash
 set -euo pipefail
 
 REPO="liangjian202/cli-sample"   # 发布后替换为实际 GitHub 仓库

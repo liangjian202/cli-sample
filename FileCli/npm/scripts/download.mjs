@@ -11,6 +11,7 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
 const platformMap = {
   "win32-x64": { rid: "win-x64", file: "filecli-win-x64.zip", exe: "filecli.exe" },
+  "win32-arm64": { rid: "win-arm64", file: "filecli-win-arm64.zip", exe: "filecli.exe" },
   "linux-x64": { rid: "linux-x64", file: "filecli-linux-x64.tar.gz", exe: "filecli" },
   "linux-arm64": { rid: "linux-arm64", file: "filecli-linux-arm64.tar.gz", exe: "filecli" },
   "darwin-arm64": { rid: "osx-arm64", file: "filecli-osx-arm64.tar.gz", exe: "filecli" },
