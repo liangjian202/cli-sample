@@ -1,0 +1,69 @@
+# 推送 v* 标签时触发：在三个操作系统的 runner 上做 Native AOT 编译，
+# 把各平台二进制 + dotnet tool 包发布到 GitHub Release。
+# 用法：git tag v1.0.1 && git push --tags
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            rid: win-x64
+            asset: filecli-win-x64.zip
+          - os: ubuntu-latest
+            rid: linux-x64
+            asset: filecli-linux-x64.tar.gz
+          - os: ubuntu-24.04-arm
+            rid: linux-arm64
+            asset: filecli-linux-arm64.tar.gz
+          - os: macos-latest
+            rid: osx-arm64
+            asset: filecli-osx-arm64.tar.gz
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+      - name: AOT publish
+        run: >
+          dotnet publish FileCli/FileCli.csproj -c Release -r ${{ matrix.rid }}
+          -p:PublishAot=true -o publish
+      - name: Pack archive (unix)
+        if: runner.os != 'Windows'
+        run: |
+          cd publish
+          tar czf ../${{ matrix.asset }} filecli
+      - name: Pack archive (windows)
+        if: runner.os == 'Windows'
+        run: |
+          Compress-Archive -Path publish/filecli.exe -DestinationPath ${{ matrix.asset }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset }}
+          path: ${{ matrix.asset }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+      - name: Pack dotnet tool
+        run: |
+          dotnet pack FileCli/FileCli.csproj -c Release -o nupkg
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            filecli-*.zip
+            filecli-*.tar.gz
+            nupkg/*.nupkg

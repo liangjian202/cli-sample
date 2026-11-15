@@ -1,0 +1,20 @@
+{
+  "name": "filecli",
+  "version": "1.0.0",
+  "description": "AI-Friendly file management CLI (Native AOT binary, no runtime required)",
+  "license": "MIT",
+  "bin": {
+    "filecli": "./bin/filecli.js"
+  },
+  "scripts": {
+    "postinstall": "node scripts/download.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/<owner>/<repo>.git"
+  },
+  "files": [
+    "bin/",
+    "scripts/"
+  ]
+}

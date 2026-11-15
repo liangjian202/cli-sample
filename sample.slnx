@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AgentToolsDemo/AgentToolsDemo.csproj" />
+  <Project Path="FileCli/FileCli.csproj" />
+</Solution>
