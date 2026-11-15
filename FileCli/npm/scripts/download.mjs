@@ -6,7 +6,7 @@ import { platform, arch } from "node:process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const REPO = "<owner>/<repo>"; // 发布后替换为实际 GitHub 仓库
+const REPO = "liangjian202/cli-sample"; // 发布后替换为实际 GitHub 仓库
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
 const platformMap = {
